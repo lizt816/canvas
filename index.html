@@ -11,6 +11,9 @@
    position: fixed;
    left: 0;
    top: 0;
+    /* 宽高的比例按照浏览器的比例来，做到缩放不影响 */
+   width: 100%; 
+   height: 100%;  
   }
  </style>
 </head>
@@ -19,64 +22,9 @@
    <canvas id="canvas"></canvas>
 </body>
 <script>
- const cvs = document.getElementById('canvas')  // 获取到上下文
- const ctx = cvs.getContext('2d')  // 获得一个绘制2d的画笔
- function init() {
-  cvs.width = window.innerWidth   // 因为后面需要用到这宽度，所以不用style
-  cvs.height = window.innerHeight // 因为后面需要用到这高度，所以不用style
- }
- init()
-
- function getRandom(min,max) {
-  // 随机生成整数
-  return Math.floor(Math.random() * (max +1 - min) + min)
- }
-
- // 随机生成一个点
- class Point{
-  constructor(){
-   this.r = 4;
-   this.x = getRandom(0,cvs.width - this.r/2); 
-   //x的坐标最大出现的位置在画布的宽度内
-   this.y = getRandom(0,cvs.height - this.r/2);
-   //y的坐标最大出现的位置在画布的高度内
-  }
-  draw(){
-   ctx.beginPath()
-   ctx.arc(this.x,this.y,this.r,0,Math.PI*2)
-   ctx.fillStyle = '#fff'   // fill：填充，绘图后的背景颜色
-   ctx.fill()     // 绘制成填充
-  }
- }
-
- // 调用随机生成的一个点，并且给他们连线
- class Graph{
-  constructor(pointNumber = 30){ 
-   // 生成30个Point个构造函数
-   this.points = new Array(pointNumber).fill(0).map(()=> new Point())
-  }
-
-  draw(){
-   for (let i = 0; i < this.points.length; i++) {
-    const p1 = this.points[i];  // 循环，生成一个新的构造函数，在循环内
-    p1.draw()  // 生成pointNumber：30个点，并且在生成后
-    for (let j = i+1; j < this.points.length; j++) {
-     const p2 = this.points[j]
-     ctx.beginPath()
-     ctx.moveTo(p1.x,p1.y)
-     ctx.lineTo(p2.x,p2.y)
-     ctx.closePath()
-     ctx.strokeStyle = '#fff'
-     ctx.stroke()
-    }
-   }
-  }
- }
-
-const g = new Graph()
-g.draw()
-
 </script>
 <!-- <script src="./js/基本的认知api.js"></script> -->
-
+<!-- <script src="./js/生成两点和线加上透明度.js"></script> -->
+<!-- <script src="./js/放大图片或者页面时保证不模糊.js"></script> -->
+<script src="./js/放大缩小的问题解决.js"></script>
 </html>

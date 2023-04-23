@@ -1,4 +1,12 @@
 
+const cvs = document.getElementById('canvas')  // 获取到上下文
+ const ctx = cvs.getContext('2d')  // 获得一个绘制2d的画笔
+ function init() {
+  // 按照屏幕的宽高来
+  cvs.width = window.innerWidth   // 因为后面需要用到这宽度，所以不用style
+  cvs.height = window.innerHeight // 因为后面需要用到这高度，所以不用style
+ }
+ init()
 
  // 基本的认知
  ctx.beginPath()    // 告诉画笔开会绘画
