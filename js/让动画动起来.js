@@ -20,6 +20,9 @@ function getRandom(min,max) {
  return Math.floor(Math.random() * (max +1 - min) + min)
 }
 
+
+
+
 // 随机生成一个点
 class Point{
  constructor(){
@@ -46,6 +49,15 @@ class Graph{
  }
 
  draw(){
+  requestAnimationFrame(()=>{   
+   /*
+   requestAnimationFrame是 JavaScript 中用于在下一次浏览器重绘之前调用函数的方法。
+   它可以帮助我们实现更加平滑的动画效果，因为它会在浏览器准备好绘制新的帧时才调用函数，从而避免了在不同的帧之间出现的不一致性。
+   相比于使用 setTimeout 或 setInterval 来实现动画效果，requestAnimationFrame 更加高效，因为它会自动适应浏览器的刷新率，从而避免了不必要的计算和绘制
+   */ 
+   this.draw()
+  })
+  ctx.clearRect(0,0,cvs.width,cvs.height) // 涂掉某个区域，从0坐标开始，至屏幕的宽高
   for (let i = 0; i < this.points.length; i++) {
    const p1 = this.points[i];  // 循环，生成一个新的构造函数，在循环内
    p1.draw()  // 生成pointNumber：30个点，并且在生成后
