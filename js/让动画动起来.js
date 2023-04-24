@@ -31,18 +31,55 @@ class Point{
   //x的坐标最大出现的位置在画布的宽度内
   this.y = getRandom(0,cvs.height - this.r/2);
   //y的坐标最大出现的位置在画布的高度内
+  this.xSpeed = getRandom(-50,50);  // 每次移动的距离,随机生成偏移的方向
+  this.ySpeed = getRandom(-50,50);  // 每次移动的距离,随机生成偏移的方向
+  this.lastDrawTime = null;  // 上一次的时间 记录时间 ，用来算运动距离
  }
  draw(){
+  // 更新坐标
+  if(this.lastDrawTime){ // 如果上次的时间是有值的
+   // 如果没有值，代表第一次作画
+   // 如何计算坐标？
+   // 先算时间差
+   const duration = (Date.now() - this.lastDrawTime) / 1000; 
+   // duration 时间差 算换成秒 就 除以1000
+   const xDis = this.xSpeed * duration,yDis = this.ySpeed * duration;
+   // xDis 距离： 每次移动距离 * 每次相差的时间
+   // yDis 距离： 每次移动距离 * 每次相差的时间
+   let x = this.x + xDis ,
+    y = this.y + yDis;
+   // x = 需要偏移的距离，也就是下一个位置
+   // y = 需要偏移的距离，也就是下一个位置
+   if(x > cvs.width - this.r/2){
+    // 当坐标到达画布的宽度也就是边界时，
+    x = cvs.width - this.r/2; // 就变成cvs.width - this.r/2这个位置
+    this.xSpeed = -this.xSpeed  // 运动方向发生改变
+   } else if(x<0){
+    x = 0; // x = 0 也就是说到了, 当位置到了最左边
+    this.xSpeed = -this.xSpeed; // 在改变一下移动方向
+   }
+   // y的方向也是同理
+   if(y > cvs.height - this.r/2){
+    y = cvs.height - this.r/2;
+    this.ySpeed = -this.ySpeed
+   } else if(y<0){
+    y = 0;
+    this.ySpeed = -this.ySpeed;
+   }
+   this.x = x;
+   this.y = y;
+  }
   ctx.beginPath()
   ctx.arc(this.x,this.y,this.r,0,Math.PI*2)
   ctx.fillStyle = '#fff'   // fill：填充，绘图后的背景颜色
   ctx.fill()     // 绘制成填充
+  this.lastDrawTime = Date.now()  // 时间戳
  }
 }
 
 // 调用随机生成的一个点，并且给他们连线
 class Graph{
- constructor(pointNumber = 30,maxDis=500){ 
+ constructor(pointNumber = 30,maxDis=300){ 
   // 生成30个Point个构造函数，也就是30个点
   this.points = new Array(pointNumber).fill(0).map(()=> new Point())
   this.maxDis = maxDis   // 最大长度的线，超过这值就透明
