@@ -79,7 +79,7 @@ class Point{
 
 // 调用随机生成的一个点，并且给他们连线
 class Graph{
- constructor(pointNumber = 30,maxDis=300){ 
+ constructor(pointNumber = 150,maxDis=300){ 
   // 生成30个Point个构造函数，也就是30个点
   this.points = new Array(pointNumber).fill(0).map(()=> new Point())
   this.maxDis = maxDis   // 最大长度的线，超过这值就透明
