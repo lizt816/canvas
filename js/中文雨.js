@@ -25,7 +25,7 @@ function draw(){
  ctx.fillRect(0,0,cvs.width,cvs.height)   // canvas提供的api，快速填充一个区域,把上一块区域铺上色
  ctx.font = fontSize + 'px "Roboto Mono"'   // 设置文字大小，和文字的格式：Roboto Mono  ，和css的font一样
  
- ctx.fillStyle = 'red'   // fill：填充，绘图后的背景颜色
+ ctx.fillStyle = 'yellowgreen'   // fill：填充，绘图后的背景颜色
  // 注意：生成的文字在css上会根据基线对其，所以在屏幕上看不见文字
  // ctx.textAlign = 'center' // 字体在指定行居中显示，默认是靠右
  ctx.textBaseline = 'top'  //  字体在当前显示文字的水平线靠上对其，默认是基线
